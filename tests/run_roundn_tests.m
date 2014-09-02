@@ -1,6 +1,6 @@
 
 %% Add functions to path
-addpath('../function/');
+run('../../roundn/load_toolbox');
 
 %resolution 0 = integer;
 res = 0;
