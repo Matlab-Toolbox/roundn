@@ -1,6 +1,7 @@
+restoredefaultpath; matlabrc % Clear path
+clear import; % clear packages to test correct library
 
 %% Add functions to path
-clear import; % clear path to test correct library
 run('../../roundn/load_toolbox');
 
 error_count = 0;
