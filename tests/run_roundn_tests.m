@@ -1,94 +1,115 @@
 
 %% Add functions to path
+clear import; % clear path to test correct library
 run('../../roundn/load_toolbox');
 
-%resolution 0 = integer;
-res = 0;
-if (roundn(1.6, res) ~= 2)
-  disp(' Error with roundn ');
-end
+error_count = 0;
+pass_count  = 0;
 
-if (roundn(1.4, res) ~= 1)
-  disp(' Error with roundn ');
-end
-
-if (roundn(-1.4, res) ~= -1)
-  disp(' Error with roundn ');
-end
-
-if (roundn(-1.6, res) ~= -2)
-  disp(' Error with roundn ');
-end
+%% Test vectors
+  test ={};
+  res = 0; 
+  test(end+1).input =   roundn( 1.6, res);   test(end).expect =        2 ;
+  test(end+1).input =   roundn( 1.4, res);   test(end).expect =        1 ;
+  test(end+1).input =   roundn(-1.4, res);   test(end).expect =       -1 ;
+  test(end+1).input =   roundn(-1.6, res);   test(end).expect =       -2 ;
 
 
+  %% The tests
+  for vector=1:size(test,2)
+     if (  ~isequal(test(vector).input, test(vector).expect)  )
+       disp('roundn() Failed ')
+       error_count = error_count + 1;
+     else
+       pass_count  = pass_count  + 1;
+     end
+  end
+   
 %% ceiln tests
-if (ceiln(1.6, res) ~= 2)
-  disp(' Error with ceiln ');
-end
+  test ={};
+  test(end+1).input =   ceiln( 1.6, res);   test(end).expect =        2 ;
+  test(end+1).input =   ceiln( 1.4, res);   test(end).expect =        2 ;
+  test(end+1).input =   ceiln(-1.4, res);   test(end).expect =       -1 ;
+  test(end+1).input =   ceiln(-1.6, res);   test(end).expect =       -1 ;
+  
+  for vector=1:size(test,2)
+     if (  ~isequal(test(vector).input, test(vector).expect)  )
+       disp('ceiln() Failed ')
+       error_count = error_count + 1;
+     else
+       pass_count  = pass_count  + 1;
+     end
+  end
+  
+ 
+  %% floorn tests
+  test ={};
+  test(end+1).input =   floorn( 1.6, res);   test(end).expect =        1 ;
+  test(end+1).input =   floorn( 1.4, res);   test(end).expect =        1 ;
+  test(end+1).input =   floorn(-1.4, res);   test(end).expect =       -2 ;
+  test(end+1).input =   floorn(-1.6, res);   test(end).expect =       -2 ;
+  
+  for vector=1:size(test,2)
+     if (  ~isequal(test(vector).input, test(vector).expect)  )
+       disp('floorn() Failed ')
+       error_count = error_count + 1;
+     else
+       pass_count  = pass_count  + 1;
+     end
+  end
+  
+  %% round_to_zeron tests
+  test ={};
+  test(end+1).input =   round_to_zeron( 1.6, res);   test(end).expect =        1 ;
+  test(end+1).input =   round_to_zeron( 1.4, res);   test(end).expect =        1 ;
+  test(end+1).input =   round_to_zeron(-1.4, res);   test(end).expect =       -1 ;
+  test(end+1).input =   round_to_zeron(-1.6, res);   test(end).expect =       -1 ;
+  
+  for vector=1:size(test,2)
+     if (  ~isequal(test(vector).input, test(vector).expect)  )
+       disp('round_to_zeron() Failed ')
+       error_count = error_count + 1;
+     else
+       pass_count  = pass_count  + 1;
+     end
+  end
+  
+  
+  %% round_away_zeron tests
+  test ={};
+  test(end+1).input =   round_away_zeron( 1.6, res);   test(end).expect =        2 ;
+  test(end+1).input =   round_away_zeron( 1.4, res);   test(end).expect =        2 ;
+  test(end+1).input =   round_away_zeron(-1.4, res);   test(end).expect =       -2 ;
+  test(end+1).input =   round_away_zeron(-1.6, res);   test(end).expect =       -2 ;
+  
+  for vector=1:size(test,2)
+     if (  ~isequal(test(vector).input, test(vector).expect)  )
+       disp('round_away_zeron() Failed ')
+       error_count = error_count + 1;
+     else
+       pass_count  = pass_count  + 1;
+     end
+  end
+  
+  %% Test Status Report
+  if error_count > 0
+    disp(['Test FAILED : ', num2str(pass_count), ' passes and ',num2str(error_count),' fails'])
+  else
+    disp(['Test Passed : ', num2str(pass_count), ' checks ran '])
+  end
 
-if (ceiln(1.4, res) ~= 2)
-  disp(' Error with ceiln ');
-end
-
-if (ceiln(-1.4, res) ~= -1)
-  disp(' Error with ceiln ');
-end
-
-if (ceiln(-1.6, res) ~= -1)
-  disp(' Error with ceiln ');
-end
 
 
-%% floorn tests
-if (floorn(1.6, res) ~= 1)
-  disp(' Error with floorn ');
-end
-
-if (floorn(1.4, res) ~= 1)
-  disp(' Error with floorn ');
-end
-
-if (floorn(-1.4, res) ~= -2)
-  disp(' Error with floorn ');
-end
-
-if (floorn(-1.6, res) ~= -2)
-  disp(' Error with floorn ');
-end
 
 
-%% round_to_zeron tests
-if (round_to_zeron(1.6, res) ~= 1)
-  disp(' Error with round_to_zeron ');
-end
-
-if (round_to_zeron(1.4, res) ~= 1)
-  disp(' Error with round_to_zeron ');
-end
-
-if (round_to_zeron(-1.4, res) ~= -1)
-  disp(' Error with round_to_zeron ');
-end
-
-if (round_to_zeron(-1.6, res) ~= -1)
-  disp(' Error with round_to_zeron ');
-end
 
 
-%% round_away_zeron tests
-if (round_away_zeron(1.6, res) ~= 2)
-  disp(' Error with round_away_zeron ');
-end
 
-if (round_away_zeron(1.4, res) ~= 2)
-  disp(' Error with round_away_zeron ');
-end
 
-if (round_away_zeron(-1.4, res) ~= -2)
-  disp(' Error with round_away_zeron ');
-end
 
-if (round_away_zeron(-1.6, res) ~= -2)
-  disp(' Error with round_away_zeron ');
-end
+
+
+
+
+
 
